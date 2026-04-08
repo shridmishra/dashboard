@@ -9,7 +9,8 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { orders, statusConfig, type OrderStatus } from "@/lib/data";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MoreHorizontal } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface OrdersTableProps {
   locale: "en" | "ar";
@@ -86,17 +87,20 @@ export function OrdersTable({ locale }: OrdersTableProps) {
         <Table>
           <TableHeader className="bg-muted/20">
             <TableRow className="hover:bg-transparent border-border/70">
-              <TableHead className={cn("h-14 ps-8 text-[11px] font-bold tracking-tight text-muted-foreground/90", isRtl ? "text-right" : "text-left")}>
+              <TableHead className="h-14 ps-8 text-start text-[11px] font-bold tracking-widest uppercase text-muted-foreground/50 w-[20%]">
                 {isRtl ? "معرف الطلب" : "Assignment ID"}
               </TableHead>
-              <TableHead className={cn("h-14 text-[11px] font-bold tracking-tight text-muted-foreground/90", isRtl ? "text-right" : "text-left")}>
+              <TableHead className="h-14 text-start text-[11px] font-bold tracking-widest uppercase text-muted-foreground/50 w-[25%]">
                 {isRtl ? "العميل" : "Associate"}
               </TableHead>
-              <TableHead className={cn("h-14 text-[11px] font-bold tracking-tight text-muted-foreground/90", isRtl ? "text-right" : "text-left")}>
+              <TableHead className="h-14 text-start text-[11px] font-bold tracking-widest uppercase text-muted-foreground/50 w-[25%]">
                 {isRtl ? "الحالة" : "Current Status"}
               </TableHead>
-              <TableHead className={cn("h-14 pe-8 text-[11px] font-bold tracking-tight text-muted-foreground/90", isRtl ? "text-right" : "text-left")}>
+              <TableHead className="h-14 text-start text-[11px] font-bold tracking-widest uppercase text-muted-foreground/50 w-[20%]">
                 {isRtl ? "المجموع" : "Total Value"}
+              </TableHead>
+              <TableHead className="h-14 pe-8 text-end text-[11px] font-bold tracking-widest uppercase text-muted-foreground/50 w-[0%]">
+                {isRtl ? "تفاصيل" : "Details"}
               </TableHead>
             </TableRow>
           </TableHeader>
@@ -106,24 +110,29 @@ export function OrdersTable({ locale }: OrdersTableProps) {
                 key={order.id}
                 className="group border-border/10 transition-all duration-300 hover:bg-primary/[0.02] active:bg-primary/[0.04]"
               >
-                <TableCell className="py-5 ps-8">
-                  <span className="font-bold text-[13px] tracking-tighter text-foreground transition-colors group-hover:text-primary">
+                <TableCell className="py-4 ps-8 text-start">
+                  <span className="font-bold text-[13px] tracking-tighter text-foreground/80 transition-colors group-hover:text-primary">
                     {order.id}
                   </span>
                 </TableCell>
-                <TableCell className="py-5">
+                <TableCell className="py-4 text-start">
                   <span className="text-sm font-semibold tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
                     {locale === "ar" ? order.associateAr : order.associateEn}
                   </span>
                 </TableCell>
-                <TableCell className="py-5">
+                <TableCell className="py-4 text-start">
                   <div className="flex items-center gap-3 opacity-70 transition-all group-hover:opacity-100 group-hover:translate-x-0.5">
                     <StatusIcon status={order.status} />
                     <StatusBadge status={order.status} locale={locale} />
                   </div>
                 </TableCell>
-                <TableCell className="py-5 pe-8 font-black text-sm tracking-tight text-foreground/80 tabular-nums transition-colors group-hover:text-foreground">
+                <TableCell className="py-4 text-start font-black text-sm tracking-tight text-foreground/80 tabular-nums transition-colors group-hover:text-foreground">
                   {order.amount}
+                </TableCell>
+                <TableCell className="py-4 pe-8 text-end">
+                  <Button variant="ghost" size="icon" className="h-8 w-8 rounded-lg text-muted-foreground/40 hover:text-white hover:bg-primary/[0.04]">
+                    <MoreHorizontal className="h-4 w-4 text-white" />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

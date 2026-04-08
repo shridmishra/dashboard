@@ -26,7 +26,7 @@ export function Header({ locale, onLocaleChange }: HeaderProps) {
   const isRtl = locale === "ar"
 
   return (
-    <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-border bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-10">
+    <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-border bg-background/95 px-6 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60 md:px-10">
       <div className="flex items-center gap-4">
         <SidebarTrigger className="-ml-1 text-muted-foreground transition-colors hover:text-foreground" />
         <div className="hidden h-6 w-[1px] bg-border/60 md:block" />
@@ -37,7 +37,7 @@ export function Header({ locale, onLocaleChange }: HeaderProps) {
                 {isRtl ? "بيئات العمل" : "Workspace"}
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator className="opacity-20" />
+            <BreadcrumbSeparator className="opacity-50" />
             <BreadcrumbItem>
               <BreadcrumbPage className="text-[13px] font-bold text-primary transition-all group-hover:scale-105">
                 {isRtl ? "لوحة التحكم" : "Dashboard"}
@@ -54,7 +54,7 @@ export function Header({ locale, onLocaleChange }: HeaderProps) {
           <Input
             type="search"
             placeholder={isRtl ? "بحث..." : "Search..."}
-            className="h-9 w-full rounded-xl bg-muted/30 pl-10 pr-4 text-[13px] font-medium border-border/40 focus-visible:ring-primary/10 transition-all placeholder:text-muted-foreground/30"
+            className="h-9 w-full rounded-xl bg-muted/60 pl-10 pr-4 text-[13px] font-medium border-border focus-visible:ring-0 transition-all placeholder:text-muted-foreground/30"
           />
         </div>
 

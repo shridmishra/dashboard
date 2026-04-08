@@ -263,7 +263,7 @@ export function AppSidebar({ locale }: { locale: "en" | "ar" }) {
 
       <SidebarFooter className={cn(
         "border-t border-sidebar-border bg-background transition-all overflow-hidden",
-        isCollapsed ? "py-4 items-center" : "p-6"
+        isCollapsed ? "py-4 items-center" : ""
       )}>
         <SidebarMenu className={cn(isCollapsed && "items-center")}>
           <SidebarMenuItem>
