@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 
 interface HeaderProps {
   locale: "en" | "ar"
@@ -25,20 +26,20 @@ export function Header({ locale, onLocaleChange }: HeaderProps) {
   const isRtl = locale === "ar"
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-border bg-background/95 px-6 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-10">
       <div className="flex items-center gap-4">
-        <SidebarTrigger className="-ml-1 text-muted-foreground hover:text-foreground" />
-        <div className="hidden h-4 w-[1px] bg-border md:block" />
+        <SidebarTrigger className="-ml-1 text-muted-foreground transition-colors hover:text-foreground" />
+        <div className="hidden h-6 w-[1px] bg-border/60 md:block" />
         <Breadcrumb className="hidden md:block">
-          <BreadcrumbList>
+          <BreadcrumbList className="gap-2">
             <BreadcrumbItem>
-              <BreadcrumbLink href="/" className="text-[12.5px] font-medium text-muted-foreground hover:text-foreground">
-                {isRtl ? "الرئيسية" : "Workspace"}
+              <BreadcrumbLink href="/" className="text-[13px] font-semibold text-muted-foreground/60 transition-colors hover:text-foreground">
+                {isRtl ? "بيئات العمل" : "Workspace"}
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator className="opacity-40" />
+            <BreadcrumbSeparator className="opacity-20" />
             <BreadcrumbItem>
-              <BreadcrumbPage className="text-[12.5px] font-semibold tracking-tight text-foreground">
+              <BreadcrumbPage className="text-[13px] font-bold text-primary transition-all group-hover:scale-105">
                 {isRtl ? "لوحة التحكم" : "Dashboard"}
               </BreadcrumbPage>
             </BreadcrumbItem>
@@ -46,39 +47,43 @@ export function Header({ locale, onLocaleChange }: HeaderProps) {
         </Breadcrumb>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         {/* Search Bar */}
-        <div className="relative hidden w-64 md:block">
-          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground/50" />
+        <div className="relative hidden w-72 md:block">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground/40" />
           <Input
             type="search"
-            placeholder={isRtl ? "بحث..." : "Search bar with auto-complete"}
-            className="h-9 w-full rounded-lg bg-muted/40 pl-9 pr-4 text-[13px] border-border/50 focus-visible:ring-primary/20"
+            placeholder={isRtl ? "بحث..." : "Search..."}
+            className="h-9 w-full rounded-xl bg-muted/30 pl-10 pr-4 text-[13px] font-medium border-border/40 focus-visible:ring-primary/10 transition-all placeholder:text-muted-foreground/30"
           />
         </div>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-1">
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground md:hidden">
-            <Search className="h-4 w-4" />
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden">
+            <Search className="h-5 w-5" />
           </Button>
           
-          <button
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => onLocaleChange(locale === "en" ? "ar" : "en")}
-            className="h-8 rounded-md px-2 text-[11px] font-bold tracking-tighter text-muted-foreground hover:bg-accent/50 hover:text-foreground transition-colors"
+            className="h-9 px-3 text-[11px] font-bold tracking-widest text-muted-foreground/50 hover:bg-muted hover:text-foreground transition-all uppercase"
           >
-            {isRtl ? "EN" : "AR"}
-          </button>
+            {isRtl ? "English" : "Arabic"}
+          </Button>
 
-          <ModeToggle />
-          
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
-            <Bell className="h-4 w-4" />
-          </Button>
-          
-          <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
-            <Settings className="h-4 w-4" />
-          </Button>
+          <div className="flex items-center gap-1 border-s border-border/50 ps-2">
+            <ModeToggle />
+            
+            <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+              <Bell className="h-5 w-5" />
+            </Button>
+            
+            <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+              <Settings className="h-5 w-5" />
+            </Button>
+          </div>
         </div>
       </div>
     </header>

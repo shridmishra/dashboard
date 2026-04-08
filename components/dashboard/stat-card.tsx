@@ -1,6 +1,7 @@
 import { type StatCard as StatCardData } from "@/lib/data";
 import { Sparkline } from "./sparkline";
 import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface StatCardProps {
   stat: StatCardData;
@@ -13,45 +14,48 @@ export function StatCard({ stat, locale }: StatCardProps) {
   const trendIsPositive = isReturnRate ? !isUp : isUp;
 
   return (
-    <Card className="group relative overflow-hidden border-border/50 bg-card/30 backdrop-blur-sm transition-all duration-300 hover:border-border hover:bg-card/50 hover:shadow-lg hover:shadow-black/5 dark:hover:shadow-white/5">
-      {/* Accent subtle top line */}
+    <Card className="group relative overflow-hidden border-border bg-card/30 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:border-primary/20 hover:bg-card/80 hover:shadow-2xl hover:shadow-primary/[0.05] active:scale-[0.98]">
+      {/* Accent vibrant top line */}
       <div
-        className="absolute inset-x-0 top-0 h-[2px] opacity-40 group-hover:opacity-70 transition-opacity"
+        className="absolute inset-x-0 top-0 h-[3px] opacity-30 group-hover:opacity-100 transition-all duration-500"
         style={{ backgroundColor: stat.accentHex }}
       />
 
-      <CardContent className="p-5">
+      <CardContent className="p-6">
         {/* Label */}
-        <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 transition-colors group-hover:text-muted-foreground">
+        <p className="text-sm font-semibold tracking-tight text-foreground/70 transition-colors group-hover:text-foreground">
           {locale === "ar" ? stat.labelAr : stat.labelEn}
         </p>
 
         {/* Value */}
-        <div className="mt-3 flex items-baseline justify-between">
-          <h3 className="text-2xl font-bold tracking-tight text-foreground">
+        <div className="mt-4 flex items-baseline justify-between gap-4">
+          <h3 className="text-3xl font-black tracking-tighter text-foreground transition-transform duration-300 group-hover:translate-x-0.5">
             {stat.value}
           </h3>
           
-          <div className="shrink-0 transition-transform duration-500 group-hover:scale-105">
+          <div className="shrink-0 transition-transform duration-500 group-hover:scale-110">
             <Sparkline
               data={stat.sparkline}
               color={stat.accentHex}
-              width={56}
-              height={22}
+              width={60}
+              height={28}
             />
           </div>
         </div>
 
         {/* Trend */}
-        <div className="mt-4 flex items-center gap-1.5">
-          <div className={`p-0.5 rounded-full ${trendIsPositive ? "bg-emerald-500/10" : "bg-red-500/10"}`}>
+        <div className="mt-6 flex items-center gap-2">
+          <div className={cn(
+            "flex h-5 w-5 items-center justify-center rounded-full transition-transform duration-500 group-hover:scale-110",
+            trendIsPositive ? "bg-emerald-500/10" : "bg-red-500/10"
+          )}>
             <svg
-              width="10"
-              height="10"
+              width="12"
+              height="12"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2.5"
+              strokeWidth="3"
               strokeLinecap="round"
               strokeLinejoin="round"
               className={isUp ? "text-emerald-500" : "text-red-500 rotate-180"}
@@ -60,14 +64,19 @@ export function StatCard({ stat, locale }: StatCardProps) {
               <polyline points="17 6 23 6 23 12" />
             </svg>
           </div>
-          <span
-            className={`text-[11px] font-bold ${
-              trendIsPositive ? "text-emerald-500" : "text-red-500"
-            }`}
-          >
-            {stat.trend}%
-          </span>
-          <span className="text-[10px] font-medium text-muted-foreground/40">vs last month</span>
+          <div className="flex items-baseline gap-1.5">
+            <span
+              className={cn(
+                "text-sm font-bold tracking-tight",
+                trendIsPositive ? "text-emerald-500" : "text-red-500"
+              )}
+            >
+              {stat.trend}%
+            </span>
+            <span className="text-[11px] font-medium text-muted-foreground/80">
+              {locale === "ar" ? "مقابل الشهر الماضي" : "vs last month"}
+            </span>
+          </div>
         </div>
       </CardContent>
     </Card>
