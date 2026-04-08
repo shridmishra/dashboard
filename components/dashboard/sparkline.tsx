@@ -3,6 +3,7 @@ interface SparklineProps {
   color: string;
   width?: number;
   height?: number;
+  id?: string;
 }
 
 export function Sparkline({
@@ -10,45 +11,76 @@ export function Sparkline({
   color,
   width = 64,
   height = 28,
+  id = "sparkline",
 }: SparklineProps) {
   const max = Math.max(...data);
   const min = Math.min(...data);
   const range = max - min || 1;
-  const padding = 3;
+  const padding = 2;
   const usableHeight = height - padding * 2;
   const usableWidth = width - padding * 2;
 
-  const points = data
-    .map((value, index) => {
-      const x = padding + (index / (data.length - 1)) * usableWidth;
-      const y = padding + usableHeight - ((value - min) / range) * usableHeight;
-      return `${x},${y}`;
-    })
-    .join(" ");
+  const points = data.map((value, index) => {
+    const x = padding + (index / (data.length - 1)) * usableWidth;
+    const y = padding + usableHeight - ((value - min) / range) * usableHeight;
+    return { x, y };
+  });
 
-  const lastPoint = data[data.length - 1];
-  const lastX = padding + usableWidth;
-  const lastY =
-    padding + usableHeight - ((lastPoint - min) / range) * usableHeight;
+  const pathData = `M ${points[0].x} ${points[0].y} ` + 
+    points.slice(1).map(p => `L ${p.x} ${p.y}`).join(" ");
+
+  const areaData = `${pathData} L ${points[points.length - 1].x} ${height} L ${points[0].x} ${height} Z`;
+
+  const gradientId = `gradient-${id}`;
 
   return (
     <svg
       width={width}
       height={height}
       viewBox={`0 0 ${width} ${height}`}
-      fill="none"
-      className="shrink-0"
+      className="shrink-0 overflow-visible"
       aria-hidden="true"
     >
-      <polyline
-        points={points}
+      <defs>
+        <linearGradient id={gradientId} x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor={color} stopOpacity="0.4" />
+          <stop offset="100%" stopColor={color} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      
+      {/* Area fill */}
+      <path
+        d={areaData}
+        fill={`url(#${gradientId})`}
+        className="transition-all duration-700 ease-in-out"
+      />
+      
+      {/* Stroke line */}
+      <path
+        d={pathData}
         stroke={color}
-        strokeWidth="1.5"
+        strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
-        opacity="0.6"
+        fill="none"
+        className="transition-all duration-700 ease-in-out"
       />
-      <circle cx={lastX} cy={lastY} r="2" fill={color} />
+      
+      {/* Last point highlight */}
+      <circle
+        cx={points[points.length - 1].x}
+        cy={points[points.length - 1].y}
+        r="2"
+        fill={color}
+        className="transition-all duration-700 ease-in-out"
+      >
+        <animate
+          attributeName="r"
+          values="2;2.5;2"
+          dur="2s"
+          repeatCount="indefinite"
+        />
+      </circle>
     </svg>
   );
 }

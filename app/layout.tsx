@@ -4,7 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 export const metadata: Metadata = {
-  title: "Dashboard Overview",
+  title: "Dashboard",
   description: "Modern analytics dashboard with full dark/light mode and RTL support.",
 };
 

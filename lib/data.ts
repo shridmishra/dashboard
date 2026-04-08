@@ -52,8 +52,8 @@ export const stats: StatCard[] = [
     trend: 5.3,
     trendDirection: "up",
     sparkline: [18, 30, 20, 42, 35, 56, 52],
-    accentColor: "emerald",
-    accentHex: "#10b981",
+    accentColor: "amber",
+    accentHex: "#f59e0b",
   },
   {
     id: "return-rate",
@@ -83,59 +83,80 @@ export type OrderStatus = "new" | "processing" | "shipped" | "done" | "return";
 
 export type Order = {
   id: string;
-  customer: string;
+  associateEn: string;
+  associateAr: string;
   amount: string;
   status: OrderStatus;
 };
 
 export const orders: Order[] = [
-  { id: "ORD-7291", customer: "أحمد بن علي", amount: "$284.00", status: "new" },
+  { 
+    id: "ORD-7291", 
+    associateEn: "Ahmad Ali",
+    associateAr: "أحمد علي", 
+    amount: "$284.00", 
+    status: "new" 
+  },
   {
     id: "ORD-7290",
-    customer: "فاطمة حسن",
+    associateEn: "Fatima Hassan",
+    associateAr: "فاطمة حسن",
     amount: "$156.50",
     status: "processing",
   },
   {
     id: "ORD-7289",
-    customer: "محمد كامل",
+    associateEn: "Mohammad Kamil",
+    associateAr: "محمد كامل",
     amount: "$432.00",
     status: "shipped",
   },
-  { id: "ORD-7288", customer: "سارة محمد", amount: "$89.99", status: "done" },
+  { 
+    id: "ORD-7288", 
+    associateEn: "Sarah Begum",
+    associateAr: "سارة محمد", 
+    amount: "$89.99", 
+    status: "done" 
+  },
   {
     id: "ORD-7287",
-    customer: "نور الدين",
+    associateEn: "Noor ul Haq",
+    associateAr: "نور الدين",
     amount: "$215.00",
     status: "return",
   },
   {
     id: "ORD-7286",
-    customer: "خالد إبراهيم",
+    associateEn: "Khalid Mahmood",
+    associateAr: "خالد إبراهيم",
     amount: "$178.25",
     status: "new",
   },
   {
     id: "ORD-7285",
-    customer: "ليلى عبدالله",
+    associateEn: "Layla Abdullah",
+    associateAr: "ليلى عبد الله",
     amount: "$367.00",
     status: "done",
   },
   {
     id: "ORD-7284",
-    customer: "عمر الفاروق",
+    associateEn: "Umar Khan",
+    associateAr: "عمر الفاروق",
     amount: "$92.50",
     status: "processing",
   },
   {
     id: "ORD-7283",
-    customer: "هدى المنصور",
+    associateEn: "Huda Malik",
+    associateAr: "هدى المنصور",
     amount: "$445.00",
     status: "shipped",
   },
   {
     id: "ORD-7282",
-    customer: "يوسف الحربي",
+    associateEn: "Yusuf Hassan",
+    associateAr: "يوسف الحربي",
     amount: "$128.75",
     status: "done",
   },

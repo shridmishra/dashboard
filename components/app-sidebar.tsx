@@ -98,7 +98,7 @@ export function AppSidebar({ locale }: { locale: "en" | "ar" }) {
   const isCollapsed = state === "collapsed"
 
   return (
-    <Sidebar collapsible="icon" side={isRtl ? "right" : "left"} className="border-r border-border bg-sidebar">
+    <Sidebar collapsible="icon" side={isRtl ? "right" : "left"} className="border-r border-sidebar-border bg-background transition-colors duration-300">
       <SidebarHeader className={cn(
         "border-b border-border h-16 transition-all flex flex-col justify-center",
         isCollapsed ? "items-center p-0" : "p-5"
@@ -262,7 +262,7 @@ export function AppSidebar({ locale }: { locale: "en" | "ar" }) {
       </SidebarContent>
 
       <SidebarFooter className={cn(
-        "border-t border-border/80 bg-muted/5 transition-all overflow-hidden",
+        "border-t border-sidebar-border bg-background transition-all overflow-hidden",
         isCollapsed ? "py-4 items-center" : "p-6"
       )}>
         <SidebarMenu className={cn(isCollapsed && "items-center")}>

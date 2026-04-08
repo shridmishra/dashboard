@@ -73,7 +73,7 @@ export function OrdersTable({ locale }: OrdersTableProps) {
             {isRtl ? "الطلبات الأخيرة" : "Recent Orders"}
           </h2>
           <p className="text-sm font-medium text-muted-foreground/50">
-            {isRtl ? "قائمة بآخر ٥ طلبات تم إجراؤها ومتابعة حالتها." : "Monitor and track the status of your most recent transactions."}
+            {isRtl ? "مراقبة وتتبع حالة أحدث معاملاتك." : "Monitor and track the status of your most recent transactions."}
           </p>
         </div>
         <div className="group flex items-center gap-2 text-xs font-bold text-muted-foreground/40 transition-colors hover:text-foreground cursor-pointer">
@@ -113,7 +113,7 @@ export function OrdersTable({ locale }: OrdersTableProps) {
                 </TableCell>
                 <TableCell className="py-5">
                   <span className="text-sm font-semibold tracking-tight text-foreground/80 transition-colors group-hover:text-foreground">
-                    {order.customer}
+                    {locale === "ar" ? order.associateAr : order.associateEn}
                   </span>
                 </TableCell>
                 <TableCell className="py-5">
